@@ -1,6 +1,6 @@
 # Go 1.25+ Backend
 
-As a headless API server, the backends primary responsibility is to provide a reliable, scalable, and secure interface for the Nuxt.js frontend to consume.
+This application serves as a headless API server, providing a secure and reliable interface for a Nuxt.js v4 frontend.
 
 ## Backend Principles
 

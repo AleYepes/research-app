@@ -18,6 +18,9 @@ jobs:
         with:
           go-version: stable
 
+      - name: Copy files
+        run: cp README.md backend/
+
       - name: Run GoReleaser
         uses: goreleaser/goreleaser-action@v6
         with:

@@ -2,9 +2,9 @@
 
 ## Tech Stack
 
-- Backend: Go 1.25+ and `go-chi/chi/v5` (headless API server)
-- Frontend: TS 5.0+, Nuxt.js 3+, and Vue 3+
-- Styling: Tailwind CSS v4, `shadcn-nuxt`, and apache echarts
+- Backend: Go v1.25+ and `go-chi/chi/v5` (headless API server)
+- Frontend: TS v5.0+, Nuxt.js v4+, and Vue v3.5+
+- Styling: Tailwind CSS v4+, `shadcn-nuxt`, and apache echarts
 - Build Tools: Go native build system and Vite for Nuxt.js
 - Deployment: Coolify/Docker
 - Database: Postgres with `sqlc-dev/sqlc` for type-safety and `pgvector` for vector search
