@@ -30,11 +30,11 @@ services:
     depends_on:
       - app
     ports:
-      - 5173:5173
+      - 5173:80
     networks:
       - blueprint
   psql_bp:
-    image: postgres:latest
+    image: postgres:alpine
     restart: unless-stopped
     environment:
       POSTGRES_DB: ${BLUEPRINT_DB_DATABASE}
