@@ -16,40 +16,40 @@
 
 ## Architectural Principles
 
-### 1. Follow Go and Nuxt Idioms and Conventions
+### Modularity with Managed Coupling
 
-- Keep all code simple and pragmatic, prioritizing clarity and simplicity over cleverness.
+- Decouple the frontend and backend completely; all interaction must occur through APIs.
+- Organize backend modules by business domain, not by technical function.
+- Organize domain modules into self-contained subdirectories within `backend/internal/`.
+- Enforce a clear separation of concerns to achieve high cohesion within domain modules and low coupling between them.
+- Restrict coupling between domain modules to cross-cutting concerns like authentication and middleware.
+
+### Unidirectional Dependency Rule
+
+- Ensure the entities layer (the core domain types, usually named after the internal package) has zero dependencies on other layers.
+- Make the use-cases layer (the business logic orchestration, usually in `service.go`) depend only on the entities layer.
+- Make the controllers layer (the HTTP request handling, usually in `http.go`) depend only on the use-cases layer.
+
+### Follow Go and Nuxt Idioms and Conventions
+
+- Prioritize clear, simple, and pragmatic code over complex solutions.
 - Except for managing the dependency rule, always start with the simplest solution for a given task, avoiding all complex abstractions.
 - Only use design patterns or abstractions, like the strategy or builder pattern, when many classes, attributes and/or methods are required.
 
-### 2. Modularity with Managed Coupling
+### Hybrid Rendering Strategy
 
-- Keep the frontend and backend completely decoupled, interacting only via APIs.
-- Structure the backend modules by business domain, not by technical layers.
-- Organize domain modules into self-contained subdirectories within `internal/`.
-- Enforce a clear separation of concerns, aspiring for high cohesion within domain modules and low coupling between them.
-- Limit domain module coupling to truly cross-cutting concerns, like authentication and middleware.
+- Pre-render static, non-user-specific pages (e.g., homepage, about, blog) at build time.
+- Render dynamic, user-specific pages (e.g., dashboards) on the client-side.
 
-### 3. Unidirectional Dependency Rule
+### Testing Strategy
 
-- The entities layer that describes core business logic, entities, and interfaces, usually in`domain.go`, should have no dependencies on other layers.
-- The use-cases layer that describes logic implementations, usually in `service.go`, should only depend on the entities layer.
-- The controllers layer that defines handlers, usually in `http.go`, should only depend on the use-cases layer.
+- Test critical functions in isolation with focused unit tests.
+- Use integration tests to verify interactions between key components (e.g., service to database).
+- Thoroughly test edge cases and potential failure modes.
 
-### 4. Testing Strategy
+## Example Project Structure
 
-- Write unit tests to test singular critical functions in complete isolation.
-- Write integration tests to ensure the interaction between key components (e.g. a service and a test database, or an HTTP handler and its service).
-- Always explore edge cases and failure modes when writing tests.
-
-### 5. Hybrid Rendering
-
-- Pre-render most static pages (homepage, about page, blog, etc) at build time for instant loading.
-- Render pages that require user-specific data or high interactivity (user dashboards, research dashboards, etc) client-side.
-
-## Project Structure
-
-```
+```bash
 /
 ├── .github/                        # CI/CD workflows for both backend and frontend
 │
@@ -59,13 +59,13 @@
 │   │       └── main.go             # Wires up HTTP server, API routes, and dependencies
 │   ├── internal/
 │   │   ├── database/
-│   │   │   ├── schema/             # migration .sql files
+│   │   │   ├── schema/             # Migration .sql files
 │   │   │   ├── queries/
 │   │   │   │   ├── posts.sql
 │   │   │   │   ├── users.sql
 │   │   │   │   └── comments.sql
 │   │   │   ├── generated/          # sqlc output lives here (git-ignored)
-│   │   │   ├── database.go         # connection pooling, transaction helpers
+│   │   │   ├── database.go         # Connection pooling, transaction helpers
 │   │   │   └── database_test.go
 │   │   ├── redditresearch/
 │   │   │   ├── domain.go           # Defines Subreddit, Posts and Comments structs and the relevant interfaces (service and repository)
@@ -95,8 +95,8 @@
 │   │   ├── ...
 │   │   └── redditresearch/         # Domain-specific custom components
 │   │       └── ResearchChart.vue
-│   ├── composables/                # To auto-import your Vue composables
-│   ├── middleware/                 # To run code before navigating to a particular route
+│   ├── composables/
+│   ├── middleware/                 # Code to run before navigating to a particular route
 │   ├── dist/
 │   ├── lib/
 │   ├── layouts/                    # Common UI patterns as reusable layouts
@@ -104,7 +104,7 @@
 │   │   ├── index.vue               # Homepage (prerender: true)
 │   │   ├── ...
 │   │   ├── blog/
-│   │   │   ├── index.vue           # Blog listing (prerender: true)
+│   │   │   ├── index.vue           # Blog explorer
 │   │   │   └── [slug].vue          # Dynamic blog post pages (prerender: true)
 │   │   └── redditresearch/
 │   │       └── index.vue           # Dashboard (ssr: false)
