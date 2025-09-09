@@ -10,7 +10,7 @@
 - Database: Postgres with `sqlc-dev/sqlc` for type-safety and `pgvector` for vector search
 - Migration: `golang-migrate/migrate` for database migrations
 - Observability: `log/slog` injected in main
-- Testing: `testing` + `testcontainers/testcontainers-go`for Go, and Vitest + `@nuxt/test-utils` for Nuxt
+- Testing: `testing` + `testcontainers/testcontainers-go`for Go, and `vitest@^3.2.0` + `@nuxt/test-utils` for Nuxt
 - Authentication: JWT with `golang-jwt/jwt`, OAuth2 with `golang.org/x/oauth2`
 - Linting: `golangci/golangci-lint` for Go, and `@nuxt/eslint` for TypeScript
 
@@ -59,12 +59,12 @@
 │   │       └── main.go             # Wires up HTTP server, API routes, and dependencies
 │   ├── internal/
 │   │   ├── database/
-│   │   │   ├── schema/             # Migration .sql files
+│   │   │   ├── generated/          # sqlc output lives here (git-ignored)
 │   │   │   ├── queries/
 │   │   │   │   ├── posts.sql
 │   │   │   │   ├── users.sql
 │   │   │   │   └── comments.sql
-│   │   │   ├── generated/          # sqlc output lives here (git-ignored)
+│   │   │   ├── schema/             # Migration .sql files
 │   │   │   ├── database.go         # Connection pooling, transaction helpers
 │   │   │   └── database_test.go
 │   │   ├── redditresearch/

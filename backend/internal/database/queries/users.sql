@@ -1,0 +1,8 @@
+-- name: GetUser :one
+SELECT id, name, email FROM users
+WHERE id = $1 LIMIT 1;
+
+-- name: CreateUser :one
+INSERT INTO users (name, email)
+VALUES ($1, $2)
+RETURNING id, name, email;
