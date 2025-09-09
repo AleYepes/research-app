@@ -51,45 +51,55 @@
 
 ```
 /
-├── cmd/
-│   └── api/
-│       └── main.go             # Wires up HTTP server, API routes, and dependencies
+├── .github/                        # CI/CD workflows for both backend and frontend
 │
-├── internal/
-│   ├── database/
-│   │   ├── schema/             # migration .sql files
-│   │   ├── queries/
-│   │   │   ├── posts.sql
-│   │   │   ├── users.sql
-│   │   │   └── comments.sql
-│   │   ├── generated/          # sqlc output lives here (git-ignored)
-│   │   ├── database.go         # connection pooling, transaction helpers
-│   │   └── database_test.go
-│   ├── redditresearch/
-│   │   ├── domain.go           # Defines Subreddit, Posts and Comments structs and the relevant interfaces (service and repository)
-│   │   ├── repository.go       # Implements internal/database/generated
-│   │   ├── http.go             # Page and API handlers
-│   │   ├── service.go          # Business logic implementation
-│   │   └── service_test.go
-│   ├── user/                   # Domain-dependent structure
-│   ├── redditclient/           # Background worker that populates and updates tables for redditresearch
-│   ├── blog/
-│   ├── ...
-│   ├── auth/
-│   └── middleware/
+├── backend/
+│   ├── cmd/
+│   │   └── api/
+│   │       └── main.go             # Wires up HTTP server, API routes, and dependencies
+│   ├── internal/
+│   │   ├── database/
+│   │   │   ├── schema/             # migration .sql files
+│   │   │   ├── queries/
+│   │   │   │   ├── posts.sql
+│   │   │   │   ├── users.sql
+│   │   │   │   └── comments.sql
+│   │   │   ├── generated/          # sqlc output lives here (git-ignored)
+│   │   │   ├── database.go         # connection pooling, transaction helpers
+│   │   │   └── database_test.go
+│   │   ├── redditresearch/
+│   │   │   ├── domain.go           # Defines Subreddit, Posts and Comments structs and the relevant interfaces (service and repository)
+│   │   │   ├── repository.go       # Implements internal/database/generated
+│   │   │   ├── http.go             # Page and API handlers
+│   │   │   ├── service.go          # Business logic implementation
+│   │   │   └── service_test.go
+│   │   ├── user/                   # Domain-specific structure
+│   │   ├── redditclient/           # Background worker that populates and updates tables for redditresearch
+│   │   ├── blog/
+│   │   ├── ...
+│   │   ├── auth/
+│   │   └── middleware/
+│   ├── .air.toml
+│   ├── .gitignore
+│   ├── .goreleaser.yml
+│   ├── go.mod
+│   ├── go.sum
+│   ├── main
+│   └── sqlc.yaml
 │
 ├── frontend/
 │   ├── .nuxt/
-│   ├── .output/
-│   ├── assets/                     # Uncompiled assets like Sass files, images, or fonts
+│   ├── assets/                     # Assets for the build tool to process (fonts, tailwind.css, etc)
 │   ├── components/
+│   │   ├── ui/                     # shadcn-nuxt components
 │   │   ├── ...
-│   │   └── redditresearch/
-│   │       ├── ResearchChart.vue   # Example of a highly interactive component
-│   │       └── SearchBar.vue
-│   ├── layouts/
-│   │   ├── default.vue             # Default layout for pages
-│   │   └── blog.vue                # Custom layout for blog pages
+│   │   └── redditresearch/         # Domain-specific custom components
+│   │       └── ResearchChart.vue
+│   ├── composables/                # To auto-import your Vue composables
+│   ├── middleware/                 # To run code before navigating to a particular route
+│   ├── dist/
+│   ├── lib/
+│   ├── layouts/                    # Common UI patterns as reusable layouts
 │   ├── pages/
 │   │   ├── index.vue               # Homepage (prerender: true)
 │   │   ├── ...
@@ -102,20 +112,16 @@
 │   ├── public/
 │   ├── .gitignore
 │   ├── app.vue
-│   ├── app.config.ts
-│   ├── error.vue
-│   ├── nuxt.config.ts              # Defines routeRules for hybrid rendering
+│   ├── components.json             # shadcn-nuxt configs
+│   ├── eslint.config.mjs
+│   ├── nuxt.config.ts
 │   ├── package.json
 │   └── tsconfig.json
 │
-├── .github/                        # CI/CD workflows for both backend and frontend
+├── .env                            # Global build/dev-time environment variables
 ├── .gitignore
-├── .env
-├── air.toml
 ├── docker-compose.yml
 ├── Dockerfile
-├── go.mod
-├── go.sum
 ├── Makefile
-└── sqlc.yaml
+└── README.md
 ```

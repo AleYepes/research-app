@@ -1,4 +1,4 @@
-package server
+package setup
 
 import (
 	"fmt"
@@ -9,7 +9,7 @@ import (
 
 	_ "github.com/joho/godotenv/autoload"
 
-	"research-app/internal/database"
+	"research-app/backend/internal/database"
 )
 
 type Server struct {
