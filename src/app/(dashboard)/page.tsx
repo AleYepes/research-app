@@ -1,6 +1,6 @@
-import { Button } from '@/components/ui/button';
-import { ArrowRight, CreditCard, Database } from 'lucide-react';
-import { Terminal } from './terminal';
+import { ArrowRight, CreditCard, Database } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { Terminal } from "./terminal";
 
 export default function HomePage() {
   return (
@@ -22,6 +22,7 @@ export default function HomePage() {
                 <a
                   href="https://vercel.com/templates/next.js/next-js-saas-starter"
                   target="_blank"
+                  rel="noopener"
                 >
                   <Button
                     size="lg"
@@ -111,7 +112,7 @@ export default function HomePage() {
               </p>
             </div>
             <div className="mt-8 lg:mt-0 flex justify-center lg:justify-end">
-              <a href="https://github.com/nextjs/saas-starter" target="_blank">
+              <a href="https://github.com/nextjs/saas-starter" target="_blank" rel="noopener">
                 <Button
                   size="lg"
                   variant="outline"
