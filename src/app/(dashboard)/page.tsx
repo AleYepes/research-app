@@ -112,7 +112,11 @@ export default function HomePage() {
               </p>
             </div>
             <div className="mt-8 lg:mt-0 flex justify-center lg:justify-end">
-              <a href="https://github.com/nextjs/saas-starter" target="_blank" rel="noopener">
+              <a
+                href="https://github.com/nextjs/saas-starter"
+                target="_blank"
+                rel="noopener"
+              >
                 <Button
                   size="lg"
                   variant="outline"
