@@ -1,6 +1,6 @@
 import type Stripe from "stripe";
 import { handleSubscriptionChange, stripe } from "@/lib/payments/stripe";
-import type { NextRequest, NextResponse } from "next/server";
+import { type NextRequest, NextResponse } from "next/server";
 
 if (!process.env.STRIPE_WEBHOOK_SECRET) {
   throw new Error("STRIPE_WEBHOOK_SECRET is not set");
